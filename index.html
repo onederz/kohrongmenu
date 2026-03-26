@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Menu Display | Scroll Snap Images</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fff5df;
+      overflow-x: hidden;
+    }
+
+    /* MAIN CONTAINER: VERTICAL SCROLL SNAP */
+    .menu-scroll-container {
+      height: 100vh;
+      width: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #c0a06b #fff5df;
+    }
+
+    .menu-scroll-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    .menu-scroll-container::-webkit-scrollbar-track {
+      background: #fff5df;
+      border-radius: 8px;
+    }
+    .menu-scroll-container::-webkit-scrollbar-thumb {
+      background: #c0a06b;
+      border-radius: 8px;
+    }
+
+    /* EACH SECTION = FULL VIEWPORT SNAP */
+    .menu-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f0f12;
+      padding: 1rem;
+      position: relative;
+    }
+
+    /* IMAGE CONTAINER - full A4 portrait style */
+    .menu-image-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff5df;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .menu-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff5df;
+    }
+
+    /* page number marker - clean and minimal */
+    .page-marker {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #f5e7ce;
+      font-family: monospace;
+      letter-spacing: 1px;
+      z-index: 10;
+      pointer-events: none;
+      border: 1px solid rgba(255,215,120,0.3);
+    }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 40px;
+      color: #e9d6b0;
+      font-size: 0.7rem;
+      font-weight: 500;
+      z-index: 10;
+      font-family: monospace;
+      pointer-events: none;
+    }
+
+    /* responsive: for very tall screens or mobile */
+    @media (max-width: 768px) {
+      .menu-section {
+        padding: 0.5rem;
+      }
+      .page-marker {
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.8rem;
+      }
+      .scroll-hint {
+        font-size: 0.6rem;
+        bottom: 12px;
+        left: 12px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="menu-scroll-container" id="scrollContainer">
+  
+  <!-- SECTION 1: image = 1.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-1.webp" alt="Menu page 1" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E1.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">1 / 10</div>
+  </section>
+
+  <!-- SECTION 2: image = 2.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-2.webp" alt="Menu page 2" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E2.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">2 / 10</div>
+  </section>
+
+  <!-- SECTION 3: image = 3.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-3.webp" alt="Menu page 3" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E3.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">3 / 10</div>
+  </section>
+
+  <!-- SECTION 4: image = 4.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-4.webp" alt="Menu page 4" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E4.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">4 / 10</div>
+  </section>
+
+  <!-- SECTION 5: image = 5.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-5.webp" alt="Menu page 5" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E5.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">5 / 10</div>
+  </section>
+
+  <!-- SECTION 6: image = 6.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-6.webp" alt="Menu page 6" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E6.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">6 / 10</div>
+  </section>
+
+  <!-- SECTION 7: image = 7.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-7.webp" alt="Menu page 7" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E7.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">7 / 10</div>
+  </section>
+
+  <!-- SECTION 8: image = 8.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-8.webp" alt="Menu page 8" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E8.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">8 / 10</div>
+  </section>
+
+  <!-- SECTION 9: image = 9.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-9.webp" alt="Menu page 9" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E9.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">9 / 10</div>
+  </section>
+
+  <!-- SECTION 10: image = 10.webp -->
+  <section class="menu-section">
+    <div class="menu-image-wrapper">
+      <img src="a-10.webp" alt="Menu page 10" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E10.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="page-marker">10 / 10</div>
+  </section>
+</div>
+
+<div class="scroll-hint">
+  ⬇ SCROLL DOWN ⬇
+</div>
+
+<script>
+  (function() {
+    // Ensure scroll-snap remains stable after images load (prevents layout shift)
+    const container = document.getElementById('scrollContainer');
+    let isScrolling = false;
+    
+    // optional: maintain snap integrity on resize or heavy images load
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (container) {
+          const currentPos = container.scrollTop;
+          // tiny nudget to re-engage snap
+          container.scrollTop = currentPos + 1;
+          setTimeout(() => { container.scrollTop = currentPos; }, 30);
+        }
+      }, 200);
+    });
+
+    // subtle active section visual feedback (light border around active image)
+    const sections = document.querySelectorAll('.menu-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const wrapper = entry.target.querySelector('.menu-image-wrapper');
+        if (wrapper) {
+          if (entry.isIntersecting) {
+          } else {
+            wrapper.style.boxShadow = '';
+          }
+        }
+      });
+    }, { threshold: 0.6 });
+    
+    sections.forEach(section => observer.observe(section));
+  })();
+</script>
+</body>
+</html>
