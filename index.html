@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Menu Display | Scroll Snap Images</title>
+  <title>ONEDERZ KOH RONG | Menu Display</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -12,8 +13,224 @@
     }
 
     body {
-      background: #fff5df;
+      background: #0e0c0a;
       overflow-x: hidden;
+    }
+
+    /* LOADING ANIMATION OVERLAY */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1612 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loading-overlay.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-container {
+      text-align: center;
+      position: relative;
+    }
+
+    /* Restaurant Name on Loading Page */
+    .loading-restaurant-name {
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #f2e5c9 0%, #d4af7a 50%, #f2e5c9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      opacity: 0;
+      animation: fadeInDown 0.8s ease forwards 0.2s;
+      position: relative;
+      display: inline-block;
+      font-family: 'SF Mono', monospace;
+      white-space: nowrap;
+    }
+
+    .loading-restaurant-name i {
+      font-size: 1rem;
+      color: #d4af7a;
+      margin: 0 8px;
+      opacity: 0.7;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .loading-subtitle {
+      color: #b8955a;
+      font-family: 'SF Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.4s;
+    }
+
+    /* Elegant spinner */
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards 0.6s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .loading-spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-top-color: #d4af7a;
+      border-right-color: #d4af7a;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loading-spinner-ring:nth-child(2) {
+      width: 45px;
+      height: 45px;
+      top: 7.5px;
+      left: 7.5px;
+      border-top-color: #f2e5c9;
+      border-right-color: #f2e5c9;
+      animation: spin 1.2s linear infinite reverse;
+    }
+
+    .loading-spinner-ring:nth-child(3) {
+      width: 30px;
+      height: 30px;
+      top: 15px;
+      left: 15px;
+      border-top-color: #b8955a;
+      border-right-color: #b8955a;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Loading text */
+    .loading-text {
+      color: #f2e5c9;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 12px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards 0.8s;
+    }
+
+    .loading-dots {
+      display: inline-block;
+    }
+
+    .loading-dots span {
+      animation: blink 1.4s infinite;
+      animation-fill-mode: both;
+    }
+
+    .loading-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loading-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% {
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Decorative elements */
+    .loading-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(212, 175, 122, 0.15) 0%, rgba(212, 175, 122, 0) 70%);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+      }
     }
 
     /* MAIN CONTAINER: VERTICAL SCROLL SNAP */
@@ -24,22 +241,22 @@
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       scrollbar-width: thin;
-      scrollbar-color: #c0a06b #fff5df;
+      scrollbar-color: #d4af7a #2a2418;
     }
 
     .menu-scroll-container::-webkit-scrollbar {
-      width: 8px;
+      width: 4px;
     }
     .menu-scroll-container::-webkit-scrollbar-track {
-      background: #fff5df;
+      background: #2a2418;
       border-radius: 8px;
     }
     .menu-scroll-container::-webkit-scrollbar-thumb {
-      background: #c0a06b;
+      background: #d4af7a;
       border-radius: 8px;
     }
 
-    /* EACH SECTION = FULL VIEWPORT SNAP */
+    /* EACH SECTION - NO PADDING */
     .menu-section {
       scroll-snap-align: start;
       scroll-snap-stop: always;
@@ -48,20 +265,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #0f0f12;
-      padding: 1rem;
+      background: #0a0a0c;
       position: relative;
     }
 
-    /* IMAGE CONTAINER - full A4 portrait style */
+    /* IMAGE CONTAINER - NO PADDING, FULL SIZE */
     .menu-image-wrapper {
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fff5df;
-      border-radius: 24px;
+      background: #fff6e0;
       overflow: hidden;
     }
 
@@ -70,189 +285,507 @@
       height: 100%;
       object-fit: contain;
       display: block;
-      background: #fff5df;
+      background: #fff6e0;
     }
 
-    /* page number marker - clean and minimal */
+    /* PAGE MARKER with Font Awesome */
     .page-marker {
       position: absolute;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
-      padding: 0.4rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #f5e7ce;
-      font-family: monospace;
-      letter-spacing: 1px;
-      z-index: 10;
-      pointer-events: none;
-      border: 1px solid rgba(255,215,120,0.3);
-    }
-
-    /* scroll hint */
-    .scroll-hint {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(8px);
-      padding: 6px 14px;
-      border-radius: 40px;
-      color: #e9d6b0;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(20, 18, 14, 0.8);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
       font-size: 0.7rem;
       font-weight: 500;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      letter-spacing: 0.8px;
+      color: #f2e5c9;
+      z-index: 15;
+      pointer-events: none;
+      border: 1px solid rgba(212, 175, 122, 0.55);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .page-marker i {
+      font-size: 0.6rem;
+      margin-right: 5px;
+      color: #d4af7a;
+    }
+
+    /* HAMBURGER MENU - ALWAYS VISIBLE */
+    .hamburger-menu {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .hamburger-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid rgba(212, 175, 122, 0.3);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .hamburger-icon:active {
+      transform: scale(0.95);
+      background: #ffffff;
+    }
+
+    .bar {
+      width: 20px;
+      height: 2px;
+      background: #333;
+      border-radius: 2px;
+    }
+
+    /* Dropdown Panel - Modern White Background */
+    .dropdown-panel {
+      position: fixed;
+      top: 4rem;
+      right: 1rem;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 0.5rem 0;
+      min-width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      z-index: 999;
+      transform: translateY(-10px) scale(0.95);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: top right;
+    }
+
+    .dropdown-panel.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-item {
+      padding: 1rem 1.2rem;
+      color: #2c2c2c;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dropdown-item i {
+      width: 20px;
+      font-size: 0.85rem;
+      color: #d4af7a;
+    }
+
+    .dropdown-item:active {
+      background: #f5f5f5;
+    }
+
+    .dropdown-header {
+      font-weight: 600;
+      color: #d4af7a;
+      border-bottom: 1px solid #f0f0f0;
+      margin: 0 0 0.3rem 0;
+      padding: 0.6rem 1.2rem 0.5rem 1.2rem;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dropdown-header i {
+      font-size: 0.7rem;
+      color: #d4af7a;
+    }
+
+    /* Scroll hint with Font Awesome */
+    .scroll-hint {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 6px 12px;
+      border-radius: 50px;
+      color: #e9d6b0;
+      font-size: 0.6rem;
+      font-weight: 500;
       z-index: 10;
       font-family: monospace;
       pointer-events: none;
+      border: 1px solid rgba(212, 175, 122, 0.4);
+      letter-spacing: 0.8px;
+    }
+    
+    .scroll-hint i {
+      font-size: 0.65rem;
+      margin-right: 6px;
+      animation: bounce 1.5s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
     }
 
-    /* responsive: for very tall screens or mobile */
-    @media (max-width: 768px) {
-      .menu-section {
-        padding: 0.5rem;
-      }
-      .page-marker {
-        bottom: 1rem;
-        right: 1rem;
-        font-size: 0.7rem;
-        padding: 0.3rem 0.8rem;
-      }
-      .scroll-hint {
-        font-size: 0.6rem;
-        bottom: 12px;
-        left: 12px;
-      }
+    /* Close on outside click */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 998;
+      display: none;
     }
 
+    .menu-overlay.active {
+      display: block;
+    }
+
+    /* Active marker highlight */
+    .menu-section.active-marker .page-marker {
+      background: rgba(212, 175, 122, 0.9);
+      color: #1e1b16;
+      border-color: rgba(255, 245, 210, 0.9);
+      box-shadow: 0 0 12px rgba(212, 175, 122, 0.6);
+    }
+    .menu-section.active-marker .page-marker i {
+      color: #2a2418;
+    }
   </style>
 </head>
 <body>
 
+<!-- Loading Animation Overlay with Restaurant Name -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-container">
+    <div class="loading-glow"></div>
+    <div class="loading-restaurant-name">
+      ONEDERZ KOH RONG
+    </div>
+    <div class="loading-subtitle">Culinary Excellence • Island Flavors</div>
+    <div class="loading-spinner">
+      <div class="loading-spinner-ring"></div>
+      <div class="loading-spinner-ring"></div>
+      <div class="loading-spinner-ring"></div>
+    </div>
+    <div class="loading-text">
+      LOADING MENU
+      <div class="loading-dots">
+        <span>.</span><span>.</span><span>.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="menu-scroll-container" id="scrollContainer">
   
-  <!-- SECTION 1: image = 1.webp -->
-  <section class="menu-section">
+  <!-- PAGE 1 -->
+  <section class="menu-section" data-page="1">
     <div class="menu-image-wrapper">
-      <img src="a-1.webp" alt="Menu page 1" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E1.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-1.webp" alt="Menu page 1">
     </div>
-    <div class="page-marker">1 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 1 / 15</div>
   </section>
-
-  <!-- SECTION 2: image = 2.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 2 -->
+  <section class="menu-section" data-page="2" data-category="breakfast">
     <div class="menu-image-wrapper">
-      <img src="a-2.webp" alt="Menu page 2" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E2.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-2.webp" alt="Menu page 2">
     </div>
-    <div class="page-marker">2 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 2 / 15</div>
   </section>
-
-  <!-- SECTION 3: image = 3.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 3 -->
+  <section class="menu-section" data-page="3" data-category="breakfast">
     <div class="menu-image-wrapper">
-      <img src="a-3.webp" alt="Menu page 3" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E3.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-3.webp" alt="Menu page 3">
     </div>
-    <div class="page-marker">3 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 3 / 15</div>
   </section>
-
-  <!-- SECTION 4: image = 4.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 4 -->
+  <section class="menu-section" data-page="4" data-category="breakfast">
     <div class="menu-image-wrapper">
-      <img src="a-4.webp" alt="Menu page 4" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E4.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-4.webp" alt="Menu page 4">
     </div>
-    <div class="page-marker">4 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 4 / 15</div>
   </section>
-
-  <!-- SECTION 5: image = 5.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 5 -->
+  <section class="menu-section" data-page="5" data-category="breakfast-starter">
     <div class="menu-image-wrapper">
-      <img src="a-5.webp" alt="Menu page 5" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E5.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-5.webp" alt="Menu page 5">
     </div>
-    <div class="page-marker">5 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 5 / 15</div>
   </section>
-
-  <!-- SECTION 6: image = 6.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 6 -->
+  <section class="menu-section" data-page="6" data-category="starter">
     <div class="menu-image-wrapper">
-      <img src="a-6.webp" alt="Menu page 6" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E6.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-6.webp" alt="Menu page 6">
     </div>
-    <div class="page-marker">6 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 6 / 15</div>
   </section>
-
-  <!-- SECTION 7: image = 7.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 7 -->
+  <section class="menu-section" data-page="7" data-category="western">
     <div class="menu-image-wrapper">
-      <img src="a-7.webp" alt="Menu page 7" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E7.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-7.webp" alt="Menu page 7">
     </div>
-    <div class="page-marker">7 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 7 / 15</div>
   </section>
-
-  <!-- SECTION 8: image = 8.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 8 -->
+  <section class="menu-section" data-page="8" data-category="western">
     <div class="menu-image-wrapper">
-      <img src="a-8.webp" alt="Menu page 8" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E8.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-8.webp" alt="Menu page 8">
     </div>
-    <div class="page-marker">8 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 8 / 15</div>
   </section>
-
-  <!-- SECTION 9: image = 9.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 9 -->
+  <section class="menu-section" data-page="9" data-category="western">
     <div class="menu-image-wrapper">
-      <img src="a-9.webp" alt="Menu page 9" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E9.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-9.webp" alt="Menu page 9">
     </div>
-    <div class="page-marker">9 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 9 / 15</div>
   </section>
-
-  <!-- SECTION 10: image = 10.webp -->
-  <section class="menu-section">
+  
+  <!-- PAGE 10 -->
+  <section class="menu-section" data-page="10" data-category="asian">
     <div class="menu-image-wrapper">
-      <img src="a-10.webp" alt="Menu page 10" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%221200%22%20viewBox%3D%220%200%20800%201200%22%3E%3Crect%20width%3D%22800%22%20height%3D%221200%22%20fill%3D%22%232d2a24%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0a06b%22%20font-size%3D%2220%22%20font-family%3D%22monospace%22%3E10.webp%20not%20found%3C%2Ftext%3E%3C%2Fsvg%3E'">
+      <img src="a-10.webp" alt="Menu page 10">
     </div>
-    <div class="page-marker">10 / 10</div>
+    <div class="page-marker"><i class="fas fa-star"></i> 10 / 15</div>
+  </section>
+  
+  <!-- PAGE 11 -->
+  <section class="menu-section" data-page="11" data-category="asian">
+    <div class="menu-image-wrapper">
+      <img src="a-11.webp" alt="Menu page 11">
+    </div>
+    <div class="page-marker"><i class="fas fa-star"></i> 11 / 15</div>
+  </section>
+  
+  <!-- PAGE 12 -->
+  <section class="menu-section" data-page="12" data-category="asian">
+    <div class="menu-image-wrapper">
+      <img src="a-12.webp" alt="Menu page 12">
+    </div>
+    <div class="page-marker"><i class="fas fa-star"></i> 12 / 15</div>
+  </section>
+  
+  <!-- PAGE 13 -->
+  <section class="menu-section" data-page="13" data-category="dessert">
+    <div class="menu-image-wrapper">
+      <img src="a-13.webp" alt="Menu page 13">
+    </div>
+    <div class="page-marker"><i class="fas fa-star"></i> 13 / 15</div>
+  </section>
+  
+  <!-- PAGE 14 -->
+  <section class="menu-section" data-page="14" data-category="bbq">
+    <div class="menu-image-wrapper">
+      <img src="BBQ2.webp" alt="Menu page 14" style="background: #f4eedd;">
+    </div>
+    <div class="page-marker"><i class="fas fa-star"></i> 14 / 15</div>
+  </section>
+  
+  <!-- PAGE 15 -->
+  <section class="menu-section" data-page="15" data-category="drink">
+    <div class="menu-image-wrapper">
+      <img src="Drinks.webp" alt="Menu page 15" style="background: #f1edd7;">
+    </div>
+    <div class="page-marker"><i class="fas fa-star"></i> 15 / 15</div>
   </section>
 </div>
 
-<div class="scroll-hint">
-  ⬇ SCROLL DOWN ⬇
+<!-- Hamburger Menu -->
+<div class="hamburger-menu" id="hamburgerBtn">
+  <div class="hamburger-icon">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
 </div>
+
+<!-- Dropdown Panel - Modern White Background with Smooth Animation -->
+<div class="dropdown-panel" id="dropdownPanel">
+  <div class="dropdown-header"><i class="fas fa-utensils"></i> FOOD MENU</div>
+  <div class="dropdown-item" data-category-nav="breakfast"><i class="fas fa-mug-hot"></i> Breakfast <span style="margin-left: auto; font-size: 0.6rem; color: #999;">2-5</span></div>
+  <div class="dropdown-item" data-category-nav="starter"><i class="fas fa-carrot"></i> Starter <span style="margin-left: auto; font-size: 0.6rem; color: #999;">5-6</span></div>
+  <div class="dropdown-item" data-category-nav="western"><i class="fas fa-hamburger"></i> Western <span style="margin-left: auto; font-size: 0.6rem; color: #999;">7-9</span></div>
+  <div class="dropdown-item" data-category-nav="asian"><i class="fas fa-egg"></i> Asian Food <span style="margin-left: auto; font-size: 0.6rem; color: #999;">10-12</span></div>
+  <div class="dropdown-item" data-category-nav="dessert"><i class="fas fa-ice-cream"></i> Dessert <span style="margin-left: auto; font-size: 0.6rem; color: #999;">13</span></div>
+  <div class="dropdown-item" data-category-nav="bbq"><i class="fas fa-fire"></i> BBQ Menu <span style="margin-left: auto; font-size: 0.6rem; color: #999;">14</span></div>
+  <div class="dropdown-item" data-category-nav="drink"><i class="fas fa-cocktail"></i> Drink Menu <span style="margin-left: auto; font-size: 0.6rem; color: #999;">15</span></div>
+</div>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="scroll-hint"><i class="fas fa-arrow-down"></i> SCROLL TO EXPLORE</div>
 
 <script>
   (function() {
-    // Ensure scroll-snap remains stable after images load (prevents layout shift)
     const container = document.getElementById('scrollContainer');
-    let isScrolling = false;
-    
-    // optional: maintain snap integrity on resize or heavy images load
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (container) {
-          const currentPos = container.scrollTop;
-          // tiny nudget to re-engage snap
-          container.scrollTop = currentPos + 1;
-          setTimeout(() => { container.scrollTop = currentPos; }, 30);
-        }
-      }, 200);
-    });
-
-    // subtle active section visual feedback (light border around active image)
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const dropdown = document.getElementById('dropdownPanel');
+    const overlay = document.getElementById('menuOverlay');
     const sections = document.querySelectorAll('.menu-section');
+    
+    const categoryToPage = {
+      breakfast: 2,
+      starter: 5,
+      western: 7,
+      asian: 10,
+      dessert: 13,
+      bbq: 14,
+      drink: 15
+    };
+    
+    const minLoadingTime = 1500;
+    
+    function hideLoading() {
+      loadingOverlay.classList.add('hide');
+      setTimeout(() => {
+        if (loadingOverlay && loadingOverlay.parentNode) {
+          loadingOverlay.style.display = 'none';
+        }
+      }, 800);
+    }
+    
+    function allImagesLoaded() {
+      const images = document.querySelectorAll('.menu-image-wrapper img');
+      const promises = Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.addEventListener('load', resolve);
+          img.addEventListener('error', resolve);
+        });
+      });
+      return Promise.all(promises);
+    }
+    
+    async function initializePage() {
+      const startTime = Date.now();
+      await allImagesLoaded();
+      const elapsed = Date.now() - startTime;
+      const remainingTime = Math.max(0, minLoadingTime - elapsed);
+      setTimeout(() => {
+        hideLoading();
+      }, remainingTime);
+    }
+    
+    function scrollToPage(pageNumber) {
+      const targetSection = document.querySelector(`.menu-section[data-page="${pageNumber}"]`);
+      if (!targetSection) return;
+      targetSection.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      });
+      setTimeout(() => {
+        updateActiveMarker(pageNumber);
+      }, 300);
+    }
+    
+    function updateActiveMarker(pageNumber) {
+      sections.forEach(s => s.classList.remove('active-marker'));
+      const activeSection = document.querySelector(`.menu-section[data-page="${pageNumber}"]`);
+      if (activeSection) {
+        activeSection.classList.add('active-marker');
+      }
+    }
+    
+    function closeDropdown() {
+      dropdown.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+    
+    function openDropdown() {
+      dropdown.classList.add('active');
+      overlay.classList.add('active');
+    }
+    
+    function navigateToCategory(category) {
+      const targetPage = categoryToPage[category];
+      if (targetPage) {
+        closeDropdown();
+        scrollToPage(targetPage);
+      }
+    }
+    
+    hamburgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (dropdown.classList.contains('active')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
+    
+    overlay.addEventListener('click', closeDropdown);
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dropdown.classList.contains('active')) {
+        closeDropdown();
+      }
+    });
+    
+    document.querySelectorAll('[data-category-nav]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const category = item.getAttribute('data-category-nav');
+        navigateToCategory(category);
+      });
+    });
+    
+    dropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const wrapper = entry.target.querySelector('.menu-image-wrapper');
-        if (wrapper) {
-          if (entry.isIntersecting) {
-          } else {
-            wrapper.style.boxShadow = '';
-          }
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          const section = entry.target;
+          sections.forEach(s => s.classList.remove('active-marker'));
+          section.classList.add('active-marker');
         }
       });
-    }, { threshold: 0.6 });
+    }, { threshold: 0.6, root: container });
     
     sections.forEach(section => observer.observe(section));
+    
+    initializePage();
+    
+    setTimeout(() => {
+      updateActiveMarker(1);
+      container.scrollTop = 0;
+    }, 2000);
   })();
 </script>
 </body>
